@@ -25,6 +25,7 @@ update.schema = joi.object({
 	lastName: joi.string(),
 	username: joi.string(),
 	password: joi.string().min(6).allow(""),
+	role: joi.string(),
 });
 
 async function _delete(req: Request, { params: { id } }: any) {

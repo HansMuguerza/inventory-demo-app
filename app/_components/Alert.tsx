@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { useAlertService } from "_services";
 
+import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
+
 export { Alert };
 
 function Alert() {
@@ -22,13 +24,20 @@ function Alert() {
 	return (
 		<div className="container">
 			<div className="m-3">
-				<div className={`alert alert-dismissible ${alert.type}`}>
-					{alert.message}
+				<div
+					className={`px-4 py-3 rounded-md flex justify-between ${alert.type}`}
+				>
+					<div className="flex gap-2 items-center">
+						<InformationCircleIcon className="h-5 w-5" />
+						<div>{alert.message}</div>
+					</div>
 					<button
 						type="button"
-						className="btn-close"
+						className="bg-neutral-900/20 p-1 rounded-md"
 						onClick={alertService.clear}
-					></button>
+					>
+						<XMarkIcon className="h-4 w-4" />
+					</button>
 				</div>
 			</div>
 		</div>

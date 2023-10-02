@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { Spinner } from "_components";
 import { useUserService } from "_services";
 
-export default Users;
+export default Movements;
 
-function Users() {
+function Movements() {
 	const userService = useUserService();
 	const users = userService.users;
 
@@ -18,8 +18,13 @@ function Users() {
 
 	return (
 		<>
-			<h1>Usuarios</h1>
-			<Link href="/users/add">Agregar usuario</Link>
+			<h1>Movimientos</h1>
+			<Link
+				href="/inventory/items/movements/add"
+				className="btn btn-sm btn-success mb-2"
+			>
+				Add Movimiento
+			</Link>
 			<table className="table table-striped">
 				<thead>
 					<tr>

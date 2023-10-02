@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 
 import { auth } from "_helpers/server";
 import { Alert, Nav } from "_components";
+import { Toaster } from "_components/ui/toaster";
+import { useUserService } from "_services";
 
 export default Layout;
 
@@ -21,6 +23,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 			<Alert />
 			<div className="p-4">
 				<div className="container">{children}</div>
+				<Toaster />
 			</div>
 		</div>
 	);

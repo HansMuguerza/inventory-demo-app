@@ -19,10 +19,9 @@ function Home() {
 	if (user) {
 		return (
 			<>
-				<h1>Hi {user.firstName}!</h1>
-				<p>You&apos;re logged in with Next.js & JWT!!</p>
+				<h1>Bienvenido {user.firstName}!</h1>
 				<p>
-					<Link href="/users">Manage Users</Link>
+					<Link href="/users">Control de usuarios</Link>
 				</p>
 			</>
 		);

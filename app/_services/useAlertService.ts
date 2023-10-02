@@ -11,13 +11,13 @@ function useAlertService(): IAlertService {
 	return {
 		alert,
 		success: (message: string, showAfterRedirect = false) => {
-			const type = "alert-success";
+			const type = "text-green-400 bg-green-900";
 			alertStore.setState({
 				alert: { type, message, showAfterRedirect },
 			});
 		},
 		error: (message: string, showAfterRedirect = false) => {
-			const type = "alert-danger";
+			const type = "text-red-500";
 			alertStore.setState({
 				alert: { type, message, showAfterRedirect },
 			});

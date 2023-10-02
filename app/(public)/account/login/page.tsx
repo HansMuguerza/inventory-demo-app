@@ -7,6 +7,15 @@ import { Button, buttonVariants } from "_components/ui/button";
 import { Input } from "_components/ui/input";
 
 import { useUserService } from "_services";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "_components/ui/card";
+import { Label } from "_components/ui/label";
 
 export default Login;
 
@@ -27,36 +36,47 @@ function Login() {
 	}
 
 	return (
-		<div className="card">
-			<h4 className="card-header">Login</h4>
-			<div className="card-body">
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="mb-3">
-						<label className="form-label">Username</label>
-						<Input
-							{...fields.username}
-							type="text"
-							className={`form-control ${
-								errors.username ? "is-invalid" : ""
-							}`}
-						/>
-						<div className="invalid-feedback">
-							{errors.username?.message?.toString()}
-						</div>
+		<div className="flex justify-center pt-8">
+			<Card className="w-[350px]">
+				<CardHeader>
+					<CardTitle>Login</CardTitle>
+					<CardDescription>
+						Ingresa correctamente tus credenciales.
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<div className="card-body">
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<div className="flex flex-col space-y-1.5">
+								<Label className="form-label">Usuario</Label>
+								<Input
+									{...fields.username}
+									type="text"
+									className={`form-control ${
+										errors.username ? "is-invalid" : ""
+									}`}
+								/>
+								<div className="invalid-feedback">
+									{errors.username?.message?.toString()}
+								</div>
+							</div>
+							<div className="flex flex-col space-y-1.5">
+								<Label className="form-label">Contraseña</Label>
+								<Input
+									{...fields.password}
+									type="password"
+									className={`form-control ${
+										errors.password ? "is-invalid" : ""
+									}`}
+								/>
+								<div className="invalid-feedback">
+									{errors.password?.message?.toString()}
+								</div>
+							</div>
+						</form>
 					</div>
-					<div className="mb-3">
-						<label className="form-label">Password</label>
-						<Input
-							{...fields.password}
-							type="password"
-							className={`form-control ${
-								errors.password ? "is-invalid" : ""
-							}`}
-						/>
-						<div className="invalid-feedback">
-							{errors.password?.message?.toString()}
-						</div>
-					</div>
+				</CardContent>
+				<CardFooter>
 					<div className="flex gap-x-3">
 						<Button disabled={formState.isSubmitting}>
 							{formState.isSubmitting && (
@@ -64,15 +84,15 @@ function Login() {
 							)}
 							Login
 						</Button>
-						<Link
+						{/* <Link
 							href="/account/register"
 							className={buttonVariants({ variant: "outline" })}
 						>
-							Register
-						</Link>
+							Registro
+						</Link> */}
 					</div>
-				</form>
-			</div>
+				</CardFooter>
+			</Card>
 		</div>
 	);
 }

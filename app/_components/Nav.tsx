@@ -33,7 +33,13 @@ function Nav() {
 						href="/users"
 						className={buttonVariants({ variant: "ghost" })}
 					>
-						Users
+						Usuarios
+					</NavLink>
+					<NavLink
+						href="/inventory"
+						className={buttonVariants({ variant: "ghost" })}
+					>
+						Inventario
 					</NavLink>
 				</div>
 				<button
