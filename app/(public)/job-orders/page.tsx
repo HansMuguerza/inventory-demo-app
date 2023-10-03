@@ -38,11 +38,29 @@ import {
 	TableRow,
 } from "_components/ui/table";
 
+interface JobOrder {
+	"Datos de Cliente": string;
+	ESTADO: string;
+	"Marca temporal": string;
+	"Tipo de Trabajo": string;
+	Sector: string;
+	Celular: string;
+	"T. DE SERVICIO": string;
+	DIRECCION: string;
+	// Define la estructura de un elemento de job order aquí
+}
+
+interface ParsedData {
+	data: JobOrder[];
+}
+
 export default JobOrders;
 
 function JobOrders() {
-	const [jobOrders, setJobOrders] = useState([]);
-	const [isLoading, setIsLoading] = useState({});
+	const [jobOrders, setJobOrders] = useState<JobOrder[]>([]);
+	const [isLoading, setIsLoading] = useState<{ getJobOrders: boolean }>({
+		getJobOrders: false,
+	});
 
 	const JOB_ORDERS_URL_GS =
 		"https://docs.google.com/spreadsheets/d/e/2PACX-1vTMSuatDRx66Yg9Z9y5iMd9_NO5nmfoKGbf8SDcw0xJJ5iTQwpqEFf7ifvZbqcnw36tHAy2MEPkSkvR/pub?gid=1504437149&single=true&output=csv";
@@ -52,19 +70,14 @@ function JobOrders() {
 			setIsLoading((prev) => ({ ...prev, getJobOrders: true }));
 			const res = await fetch(JOB_ORDERS_URL_GS);
 			const data = await res.text();
-			const parsed = await new Promise((resolve, reject) => {
+			const parsed: ParsedData = await new Promise((resolve, reject) => {
 				Papa.parse(data, {
 					header: true,
 					complete: resolve,
 					error: reject,
 				});
 			});
-			if (Array.isArray(parsed) && parsed.length > 0) {
-				setJobOrders(parsed[0].data);
-			} else {
-				console.error("Los datos analizados no son válidos");
-			}
-			// setJobOrders(parsed.data);
+			setJobOrders(parsed.data);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -77,60 +90,77 @@ function JobOrders() {
 	}, []);
 
 	return (
-		<div>
-			<Table>
-				{/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-				<TableHeader>
-					<TableRow>
-						<TableHead>Fecha y Hora del Registro</TableHead>
-						<TableHead>Tipo de trabajo</TableHead>
-						<TableHead>Nombre Completo</TableHead>
-						<TableHead>Sector</TableHead>
-						<TableHead>Nro. Celular</TableHead>
-						<TableHead className="w-[100px]">
-							Tipo de Servicio
-						</TableHead>
-						<TableHead className="text-right">Amount</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{jobOrders
-						.filter((item) => item["ESTADO"] === "")
-						.map((item, index) => (
-							<TableRow key={index}>
-								<TableCell>{item["Marca temporal"]}</TableCell>
-								<TableCell>{item["Tipo de Trabajo"]}</TableCell>
-								<TableCell className="font-medium">
-									{item["Datos de Cliente"]}
-								</TableCell>
-								<TableCell className="font-medium">
-									{item["Sector"]}
-								</TableCell>
-								<TableCell className="font-medium">
-									{item["Celular"]}
-								</TableCell>
-								<TableCell>
-									{item["T. DE SERVICIO"] === "DUO" ? (
-										<div className="bg-violet-800 text-violet-200 p-2 rounded-md">
-											{item["T. DE SERVICIO"]}
-										</div>
-									) : null}
-									{item["T. DE SERVICIO"] === "INTERNET" ? (
-										<div className="bg-sky-800 text-sky-200 p-2 rounded-md">
-											{item["T. DE SERVICIO"]}
-										</div>
-									) : null}
-									{item["T. DE SERVICIO"] === "CABLE" ? (
-										<div className="bg-amber-800 text-amber-200 p-2 rounded-md">
-											{item["T. DE SERVICIO"]}
-										</div>
-									) : null}
-								</TableCell>
-								<TableCell>{item["DIRECCION"]}</TableCell>
-							</TableRow>
-						))}
-				</TableBody>
-			</Table>
+		<div className="p-4 ">
+			<div className="border rounded-lg">
+				<Table>
+					{/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+					<TableHeader>
+						<TableRow>
+							<TableHead className="w-[200px]">
+								Fecha y Hora del Registro
+							</TableHead>
+							<TableHead>Tipo de trabajo</TableHead>
+							<TableHead>Nombre Completo</TableHead>
+							<TableHead>Sector</TableHead>
+							<TableHead>Nro. Celular</TableHead>
+							<TableHead>Tipo de Servicio</TableHead>
+							<TableHead>Dirección</TableHead>
+						</TableRow>
+					</TableHeader>
+					{isLoading.getJobOrders ? (
+						<div>Cargando...</div>
+					) : (
+						<TableBody>
+							{jobOrders
+								.filter((item) => item["ESTADO"] === "")
+								.map((item, index) => (
+									<TableRow key={index}>
+										<TableCell>
+											{item["Marca temporal"]}
+										</TableCell>
+										<TableCell>
+											{item["Tipo de Trabajo"]}
+										</TableCell>
+										<TableCell className="font-medium">
+											{item[
+												"Datos de Cliente"
+											].toUpperCase()}
+										</TableCell>
+										<TableCell className="font-medium">
+											{item["Sector"]}
+										</TableCell>
+										<TableCell className="font-medium">
+											{item["Celular"]}
+										</TableCell>
+										<TableCell>
+											{item["T. DE SERVICIO"] ===
+											"DUO" ? (
+												<div className="bg-violet-800 text-violet-200 p-2 rounded-md">
+													{item["T. DE SERVICIO"]}
+												</div>
+											) : null}
+											{item["T. DE SERVICIO"] ===
+											"INTERNET" ? (
+												<div className="bg-sky-800 text-sky-200 p-2 rounded-md">
+													{item["T. DE SERVICIO"]}
+												</div>
+											) : null}
+											{item["T. DE SERVICIO"] ===
+											"CABLE" ? (
+												<div className="bg-amber-800 text-amber-200 p-2 rounded-md">
+													{item["T. DE SERVICIO"]}
+												</div>
+											) : null}
+										</TableCell>
+										<TableCell>
+											{item["DIRECCION"]}
+										</TableCell>
+									</TableRow>
+								))}
+						</TableBody>
+					)}
+				</Table>
+			</div>
 		</div>
 	);
 }
