@@ -73,25 +73,23 @@ function Login() {
 									{errors.password?.message?.toString()}
 								</div>
 							</div>
+							<div className="flex gap-x-3">
+								<Button disabled={formState.isSubmitting}>
+									{formState.isSubmitting && (
+										<span className="spinner-border spinner-border-sm me-1"></span>
+									)}
+									Login
+								</Button>
+								{/* <Link
+									href="/account/register"
+									className={buttonVariants({ variant: "outline" })}
+								>
+									Registro
+								</Link> */}
+							</div>
 						</form>
 					</div>
 				</CardContent>
-				<CardFooter>
-					<div className="flex gap-x-3">
-						<Button disabled={formState.isSubmitting}>
-							{formState.isSubmitting && (
-								<span className="spinner-border spinner-border-sm me-1"></span>
-							)}
-							Login
-						</Button>
-						{/* <Link
-							href="/account/register"
-							className={buttonVariants({ variant: "outline" })}
-						>
-							Registro
-						</Link> */}
-					</div>
-				</CardFooter>
 			</Card>
 		</div>
 	);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { NavLink } from "_components";
 import { useUserService } from "_services";
@@ -12,11 +12,16 @@ export { Nav };
 function Nav() {
 	const [loggingOut, setLoggingOut] = useState<boolean>(false);
 	const userService = useUserService();
+	const user = userService.currentUser;
 
 	async function logout() {
 		setLoggingOut(true);
 		await userService.logout();
 	}
+
+	useEffect(() => {
+		userService.getCurrent();
+	}, []);
 
 	return (
 		<nav className="py-2 px-3">
@@ -29,12 +34,15 @@ function Nav() {
 					>
 						Home
 					</NavLink>
-					<NavLink
-						href="/users"
-						className={buttonVariants({ variant: "ghost" })}
-					>
-						Usuarios
-					</NavLink>
+					{user?.role === "SUPERADMIN" ? (
+						<NavLink
+							href="/users"
+							className={buttonVariants({ variant: "ghost" })}
+						>
+							Usuarios
+						</NavLink>
+					) : null}
+
 					<NavLink
 						href="/inventory"
 						className={buttonVariants({ variant: "ghost" })}

@@ -61,7 +61,7 @@ function useItemService(): IItemService {
 
 // interfaces
 
-interface IItem {
+export interface IItem {
 	id: string;
 	isDeleting?: boolean;
 	// labels

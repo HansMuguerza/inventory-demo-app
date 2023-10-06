@@ -1,6 +1,8 @@
 import { db } from "./db";
 
 const Movement = db.Movement;
+const Item = db.Item;
+const User = db.User;
 
 export const movementsRepo = {
 	getAll,
@@ -11,7 +13,36 @@ export const movementsRepo = {
 };
 
 async function getAll() {
-	return await Movement.find({ deletedAt: null });
+	try {
+		// return await Movement.find({ deletedAt: null });
+		const movements = await Movement.find({ deletedAt: null });
+		// Obtener los IDs de los elementos relacionados
+		const itemIds = movements.map((movement) => movement.itemId);
+		const userIds = movements.map((movement) => movement.staffId);
+
+		// Consultar los elementos relacionados
+		const items = await Item.find({ _id: { $in: itemIds } });
+		const users = await User.find({ _id: { $in: userIds } });
+
+		// Asignar los elementos relacionados a los documentos de movimiento
+		const populatedMovements = movements.map((movement) => {
+			const item = items.find(
+				(item) => item._id.toString() === movement.itemId.toString()
+			);
+			const user = users.find(
+				(user) => user._id.toString() === movement.staffId.toString()
+			);
+			return {
+				...movement.toObject(), // Convertir el documento Mongoose a un objeto plano
+				Item: item, // Reemplazar la referencia por el objeto relacionado
+				User: user, // Reemplazar la referencia por el objeto relacionado
+			};
+		});
+
+		return populatedMovements;
+	} catch (error) {
+		throw "Error en movements-repo";
+	}
 }
 
 async function getById(id: string) {

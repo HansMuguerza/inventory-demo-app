@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { useAlertService } from "_services";
+import { IItem, IUser, useAlertService } from "_services";
 import { useFetch } from "_helpers/client";
 
 export { useMovementService };
@@ -45,7 +45,7 @@ function useMovementService(): IMovementService {
 			// set isDeleting prop to true on movement
 			movementStore.setState({
 				movements: movements!.map((x) => {
-					if (x.id === id) {
+					if (x._id === id) {
 						x.isDeleting = true;
 					}
 					return x;
@@ -57,7 +57,7 @@ function useMovementService(): IMovementService {
 
 			// remove deleted movement from state
 			movementStore.setState({
-				movements: movements!.filter((x) => x.id !== id),
+				movements: movements!.filter((x) => x._id !== id),
 			});
 		},
 	};
@@ -65,14 +65,19 @@ function useMovementService(): IMovementService {
 
 // interfaces
 
-interface IMovement {
-	id: string;
+export interface IMovement {
+	_id: string;
 	itemId: string;
 	type: string;
 	date: Date;
 	staffId: string;
+	amount: number;
 	reason: string;
+	obs: string;
 	isDeleting?: boolean;
+	//others
+	Item: IItem;
+	User: IUser;
 }
 
 interface IMovementStore {

@@ -114,7 +114,7 @@ function useUserService(): IUserService {
 
 // interfaces
 
-interface IUser {
+export interface IUser {
 	id: string;
 	firstName: string;
 	lastName: string;

@@ -47,7 +47,6 @@ interface JobOrder {
 	Celular: string;
 	"T. DE SERVICIO": string;
 	DIRECCION: string;
-	// Define la estructura de un elemento de job order aquí
 }
 
 interface ParsedData {

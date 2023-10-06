@@ -14,6 +14,7 @@ async function getAll() {
 
 async function create(req: Request) {
 	const body = await req.json();
+	console.log(body);
 	await itemsRepo.create(body);
 }
 
@@ -25,5 +26,5 @@ create.schema = joi.object({
 	undMed: joi.string().required(),
 	minStock: joi.number().required(),
 	important: joi.boolean(),
-	state: joi.string(),
+	state: joi.string().optional(),
 });

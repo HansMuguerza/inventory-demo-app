@@ -22,5 +22,7 @@ create.schema = joi.object({
 	type: joi.string().required(),
 	date: joi.date(),
 	staffId: joi.string().required(),
-	reason: joi.string(),
+	amount: joi.number().required(),
+	reason: joi.string().required(),
+	obs: joi.optional(),
 });

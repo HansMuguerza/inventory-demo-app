@@ -41,12 +41,12 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 		defaultValues: {
 			description: item?.description || "",
 			category: item?.category || "",
-			model: item?.model || "",
+			// model: item?.model || "",
 			brand: item?.brand || "",
 			undMed: item?.undMed || "",
 			minStock: item?.minStock || "",
 			important: item?.important || false,
-			state: item?.state || "",
+			// state: item?.state || "",
 		},
 	});
 
@@ -57,7 +57,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 		category: form.register("category", {
 			required: "Este campo es requerido.",
 		}),
-		model: form.register("model"),
+		// model: form.register("model"),
 		brand: form.register("brand"),
 		undMed: form.register("undMed", {
 			required: "Este campo es requerido.",
@@ -66,7 +66,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 			required: "Este campo es requerido.",
 		}),
 		important: form.register("important"),
-		state: form.register("state"),
+		// state: form.register("state"),
 	};
 
 	async function onSubmit(data: any) {
@@ -168,7 +168,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="model"
 								render={() => (
@@ -180,13 +180,13 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 												{...fields.model}
 											/>
 										</FormControl>
-										{/* <FormDescription>
+										<FormDescription>
 											Descripción del item
-										</FormDescription> */}
+										</FormDescription> 
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 							<FormField
 								control={form.control}
 								name="brand"
@@ -283,7 +283,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="state"
 								render={({ field }) => (
@@ -317,7 +317,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 						</div>
 						<div className="flex gap-x-2">
 							<Button
@@ -325,7 +325,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 								disabled={form.formState.isSubmitting}
 							>
 								{form.formState.isSubmitting && (
-									<span className="spinner-border spinner-border-sm me-1"></span>
+									<span className="">Guardando...</span>
 								)}
 								Guardar
 							</Button>
