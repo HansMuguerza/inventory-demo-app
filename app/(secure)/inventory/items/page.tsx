@@ -33,6 +33,41 @@ function Items() {
 	const movementService = useMovementService();
 	const movements = movementService.movements;
 
+	//convert array of clients - items
+	const newListItems = items?.map((item) => {
+		const { id, minStock } = item;
+		return {
+			...item,
+			stockTotal: stockTotal(id),
+			status: status(id, minStock),
+		};
+	});
+
+	function status(itemId: any, stockMin: number) {
+		const resIng: number | undefined = movements
+			?.filter((e) => e.type === "Ingreso")
+			.filter((e) => e.Item.id === itemId)
+			.map((item) => item.amount)
+			.reduce((prev, curr) => prev + curr, 0);
+		const resEgr: number | undefined = movements
+			?.filter((e) => e.type === "Egreso")
+			.filter((e) => e.Item.id === itemId)
+			.map((item) => item.amount)
+			.reduce((prev, curr) => prev + curr, 0);
+		if (typeof resIng === "number" && typeof resEgr === "number") {
+			const result: number = resIng - resEgr;
+			if (result <= 0) {
+				return "Sin Stock";
+			} else if (result <= stockMin) {
+				return "Stock Min";
+			} else if (result > stockMin) {
+				return "Con Stock";
+			}
+		} else {
+			return "Error";
+		}
+	}
+
 	function stockTotal(itemId: any) {
 		const resIng: number | undefined = movements
 			?.filter((e) => e.type === "Ingreso")
@@ -101,6 +136,9 @@ function Items() {
 								<TableHead style={{ width: "30%" }}>
 									Stock Actual
 								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Estado
+								</TableHead>
 								<TableHead style={{ width: "10%" }}></TableHead>
 							</TableRow>
 						</TableHeader>
@@ -115,8 +153,8 @@ function Items() {
 	);
 
 	function TableBodyComponent() {
-		if (items?.length) {
-			return items.map((item) => (
+		if (newListItems?.length) {
+			return newListItems.map((item) => (
 				<TableRow key={item.id}>
 					<TableCell>{item.description}</TableCell>
 					<TableCell>{item.category}</TableCell>
@@ -125,7 +163,8 @@ function Items() {
 					<TableCell>
 						{item.important ? "Destacado" : "Comun"}
 					</TableCell>
-					<TableCell>{stockTotal(item.id)}</TableCell>
+					<TableCell>{item.stockTotal}</TableCell>
+					<TableCell>{item.status}</TableCell>
 					<TableCell>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -171,7 +210,7 @@ function Items() {
 			));
 		}
 
-		if (!items) {
+		if (!newListItems) {
 			return (
 				<tr>
 					<td colSpan={4}>
@@ -181,7 +220,7 @@ function Items() {
 			);
 		}
 
-		if (items?.length === 0) {
+		if (newListItems?.length === 0) {
 			return (
 				<TableRow>
 					<TableCell className="h-24 text-center">

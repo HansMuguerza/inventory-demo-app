@@ -22,7 +22,7 @@ create.schema = joi.object({
 	description: joi.string().required(),
 	category: joi.string().required(),
 	model: joi.string(),
-	brand: joi.string(),
+	brand: joi.optional(),
 	undMed: joi.string().required(),
 	minStock: joi.number().required(),
 	important: joi.boolean(),

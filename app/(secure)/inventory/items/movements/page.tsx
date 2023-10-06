@@ -102,9 +102,9 @@ function Movements() {
 							)}
 					</TableCell>
 					<TableCell>{movement.amount}</TableCell>
-					<TableCell>{movement.Item.description}</TableCell>
+					<TableCell>{movement.Item?.description}</TableCell>
 					<TableCell>{movement.reason}</TableCell>
-					<TableCell>{movement.User.firstName}</TableCell>
+					<TableCell>{movement.User?.firstName}</TableCell>
 					<TableCell>{movement.obs}</TableCell>
 					<TableCell>
 						<DropdownMenu>
