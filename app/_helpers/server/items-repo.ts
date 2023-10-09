@@ -11,7 +11,7 @@ export const itemsRepo = {
 };
 
 async function getAll() {
-	return await Item.find({ deletedAt: null });
+	return await Item.find({ deletedAt: null }).sort({ important: -1 });
 }
 
 async function getById(id: string) {

@@ -161,6 +161,9 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 												<SelectItem value="EQUIPO MSM">
 													EQUIPO MSM
 												</SelectItem>
+												<SelectItem value="OTRO">
+													OTRO
+												</SelectItem>
 											</SelectContent>
 										</Select>
 										<FormMessage />
