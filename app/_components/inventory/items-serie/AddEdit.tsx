@@ -113,7 +113,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 					<div className="grid grid-cols-1 gap-6">
 						<Title>{title}</Title>
 						<div className="grid grid-cols-2 gap-y-5 gap-x-3">
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="description"
 								render={() => (
@@ -129,13 +129,13 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 							<FormField
 								control={form.control}
-								name="category"
+								name="description"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Categoría</FormLabel>
+										<FormLabel>Descripción</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
@@ -146,100 +146,17 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="FTTH">
-													FTTH
+												<SelectItem value="SINTONIZADOR DE TV DIGITAL">
+													SINTONIZADOR DE TV DIGITAL
 												</SelectItem>
-												<SelectItem value="COAXIAL">
-													COAXIAL
+												<SelectItem value="G/EPON ONU + CATV">
+													G/EPON ONU + CATV
 												</SelectItem>
-												<SelectItem value="AMPLIACIÓN">
-													AMPLIACIÓN
-												</SelectItem>
-												<SelectItem value="PUBLICIDAD">
-													PUBLICIDAD
-												</SelectItem>
-												<SelectItem value="EQUIPO MSM">
-													EQUIPO MSM
+												<SelectItem value="G/EPON ONU">
+													G/EPON ONU
 												</SelectItem>
 											</SelectContent>
 										</Select>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
-								name="undMed"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Unidad de Medida</FormLabel>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Selecciona una opción" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												<SelectItem value="UND">
-													UND
-												</SelectItem>
-												<SelectItem value="ROLLO">
-													ROLLO
-												</SelectItem>
-											</SelectContent>
-										</Select>
-										{/* <FormDescription>
-											Descripción del estado del item a
-											ingresar
-										</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="minStock"
-								render={() => (
-									<FormItem>
-										<FormLabel>Stock Mínimo</FormLabel>
-										<FormControl>
-											<Input
-												type="number"
-												placeholder="10"
-												{...fields.minStock}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-											Descripción del item
-										</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="important"
-								render={({ field }) => (
-									<FormItem className="">
-										<FormLabel>Destacable</FormLabel>
-										<div className="flex gap-x-2 items-center border p-2.5 rounded-md">
-											<FormControl>
-												<Checkbox
-													checked={field.value}
-													onCheckedChange={
-														field.onChange
-													}
-												/>
-											</FormControl>
-											<FormDescription>
-												Seleccionar para destacar el
-												item a ingresar.
-											</FormDescription>
-										</div>
 										<FormMessage />
 									</FormItem>
 								)}
@@ -247,16 +164,30 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 							<FormField
 								control={form.control}
 								name="model"
-								render={() => (
+								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Modelo</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="MODELO001"
-												{...fields.model}
-												onChange={handleUppercaseChange}
-											/>
-										</FormControl>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Selecciona una opción" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="STD1910HD">
+													STD1910HD
+												</SelectItem>
+												<SelectItem value="STD2010HD">
+													STD2010HD
+												</SelectItem>
+												<SelectItem value="STD2105HD">
+													STD2105HD
+												</SelectItem>
+											</SelectContent>
+										</Select>
 										<FormMessage />
 									</FormItem>
 								)}
@@ -264,16 +195,30 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 							<FormField
 								control={form.control}
 								name="brand"
-								render={() => (
+								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Marca</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="OPTRONICS"
-												{...fields.brand}
-												onChange={handleUppercaseChange}
-											/>
-										</FormControl>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Selecciona una opción" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="OPTRONICS">
+													OPTRONICS
+												</SelectItem>
+												<SelectItem value="OPTICTIMES">
+													OPTICTIMES
+												</SelectItem>
+												<SelectItem value="V-SOL">
+													V-SOL
+												</SelectItem>
+											</SelectContent>
+										</Select>
 										<FormMessage />
 									</FormItem>
 								)}

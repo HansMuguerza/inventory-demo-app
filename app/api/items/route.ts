@@ -21,10 +21,11 @@ async function create(req: Request) {
 create.schema = joi.object({
 	description: joi.string().required(),
 	category: joi.string().required(),
-	model: joi.string(),
+	model: joi.optional(),
 	brand: joi.optional(),
+	serie: joi.optional(),
 	undMed: joi.string().required(),
 	minStock: joi.number().required(),
 	important: joi.boolean(),
-	state: joi.string().optional(),
+	state: joi.optional(),
 });

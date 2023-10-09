@@ -21,12 +21,13 @@ async function update(req: Request, { params: { id } }: any) {
 update.schema = joi.object({
 	description: joi.string().required(),
 	category: joi.string().required(),
-	model: joi.string(),
-	brand: joi.string(),
+	model: joi.optional(),
+	brand: joi.optional(),
+	serie: joi.optional(),
 	undMed: joi.string().required(),
 	minStock: joi.number().required(),
 	important: joi.boolean(),
-	state: joi.string(),
+	state: joi.optional(),
 });
 
 async function _delete(req: Request, { params: { id } }: any) {

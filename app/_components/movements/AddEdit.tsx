@@ -75,6 +75,15 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 		};
 	});
 
+	//convert array of clients - users
+	const newListUsers = users?.map((item) => {
+		const { id, firstName, lastName } = item;
+		return {
+			value: id,
+			label: firstName + " " + lastName,
+		};
+	});
+
 	const form = useForm({
 		defaultValues: {
 			itemId: movement?.itemId || "",
@@ -106,14 +115,8 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 
 	async function onSubmit(data: any) {
 		toast({
-			title: "Data:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
+			title: "Notificación",
+			description: <div>¡Registro Guardado!</div>,
 		});
 
 		alertService.clear();
@@ -129,7 +132,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 			}
 
 			// redirect to user list with success message
-			router.push("/inventory/items/movements");
+			router.push("/inventory/movements");
 			alertService.success(message, true);
 		} catch (error: any) {
 			alertService.error(error);
@@ -171,10 +174,8 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 													>
 														{field.value
 															? newListItems?.find(
-																	(
-																		language
-																	) =>
-																		language.value ===
+																	(item) =>
+																		item.value ===
 																		field.value
 															  )?.label
 															: "Selecciona el item"}
@@ -182,7 +183,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 													</Button>
 												</FormControl>
 											</PopoverTrigger>
-											<PopoverContent className="w-[200px] p-0">
+											<PopoverContent className="w-full p-0">
 												<Command>
 													<CommandInput placeholder="Busca el item..." />
 													<CommandEmpty>
@@ -190,33 +191,31 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 													</CommandEmpty>
 													<CommandGroup>
 														{newListItems?.map(
-															(language) => (
+															(item) => (
 																<CommandItem
 																	value={
-																		language.label
+																		item.label
 																	}
 																	key={
-																		language.value
+																		item.value
 																	}
 																	onSelect={() => {
 																		form.setValue(
 																			"itemId",
-																			language.value
+																			item.value
 																		);
 																	}}
 																>
 																	<Check
 																		className={cn(
 																			"mr-2 h-4 w-4",
-																			language.value ===
+																			item.value ===
 																				field.value
 																				? "opacity-100"
 																				: "opacity-0"
 																		)}
 																	/>
-																	{
-																		language.label
-																	}
+																	{item.label}
 																</CommandItem>
 															)
 														)}
@@ -293,7 +292,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 								)}
 							/>
 
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="staffId"
 								render={({ field }) => (
@@ -320,6 +319,80 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 													))}
 											</SelectContent>
 										</Select>
+										<FormMessage />
+									</FormItem>
+								)}
+							/> */}
+
+							<FormField
+								control={form.control}
+								name="staffId"
+								render={({ field }) => (
+									<FormItem className="flex flex-col">
+										<FormLabel>Personal</FormLabel>
+										<Popover>
+											<PopoverTrigger asChild>
+												<FormControl>
+													<Button
+														variant="outline"
+														role="combobox"
+														className={cn(
+															"w-full justify-between",
+															!field.value &&
+																"text-muted-foreground"
+														)}
+													>
+														{field.value
+															? newListUsers?.find(
+																	(item) =>
+																		item.value ===
+																		field.value
+															  )?.label
+															: "Selecciona el personal"}
+														<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+													</Button>
+												</FormControl>
+											</PopoverTrigger>
+											<PopoverContent className="w-full p-0">
+												<Command>
+													<CommandInput placeholder="Busca el item..." />
+													<CommandEmpty>
+														No hay dato en común.
+													</CommandEmpty>
+													<CommandGroup>
+														{newListUsers?.map(
+															(item) => (
+																<CommandItem
+																	value={
+																		item.label
+																	}
+																	key={
+																		item.value
+																	}
+																	onSelect={() => {
+																		form.setValue(
+																			"staffId",
+																			item.value
+																		);
+																	}}
+																>
+																	<Check
+																		className={cn(
+																			"mr-2 h-4 w-4",
+																			item.value ===
+																				field.value
+																				? "opacity-100"
+																				: "opacity-0"
+																		)}
+																	/>
+																	{item.label}
+																</CommandItem>
+															)
+														)}
+													</CommandGroup>
+												</Command>
+											</PopoverContent>
+										</Popover>
 										<FormMessage />
 									</FormItem>
 								)}
@@ -423,11 +496,35 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="Inicial">
-													Inicial
-												</SelectItem>
 												<SelectItem value="Instalación">
 													Instalación
+												</SelectItem>
+												<SelectItem value="Avería">
+													Avería
+												</SelectItem>
+												<SelectItem value="Modificación">
+													Modificación
+												</SelectItem>
+												<SelectItem value="Anexo">
+													Anexo
+												</SelectItem>
+												<SelectItem value="Anexo Interno">
+													Anexo Interno
+												</SelectItem>
+												<SelectItem value="Traslado">
+													Traslado
+												</SelectItem>
+												<SelectItem value="Ampliación">
+													Ampliación
+												</SelectItem>
+												<SelectItem value="Proveedor">
+													Proveedor
+												</SelectItem>
+												<SelectItem value="Envío">
+													Envío
+												</SelectItem>
+												<SelectItem value="Inicial">
+													Inicial
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -473,9 +570,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 							Restaurar
 						</Button>
 						<Button variant="ghost">
-							<Link href="/inventory/items/movements">
-								Cancelar
-							</Link>
+							<Link href="/inventory/movements">Cancelar</Link>
 						</Button>
 					</div>
 				</form>

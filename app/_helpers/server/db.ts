@@ -45,12 +45,13 @@ function itemModel() {
 		{
 			description: { type: String, required: true },
 			category: { type: String, required: true },
-			model: { type: String },
-			brand: { type: String },
 			undMed: { type: String, required: true },
 			minStock: { type: Number, required: true },
 			important: { type: Boolean, default: false },
+			brand: { type: String },
+			model: { type: String },
 			state: { type: String },
+			serie: { type: String },
 			deletedAt: { type: Date, default: null },
 		},
 		{

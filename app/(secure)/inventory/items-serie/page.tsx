@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 import { Spinner, Title } from "_components";
-import { useItemService, useMovementService, useUserService } from "_services";
+import { useItemService, useMovementService } from "_services";
 import { Button, buttonVariants } from "_components/ui/button";
 import { DataTableDemo } from "_components/items";
 import {
@@ -23,14 +23,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "_components/ui/dropdown-menu";
-import { MoreHorizontal, Star, StarOff } from "lucide-react";
-import { Badge } from "_components/ui/badge";
+import { MoreHorizontal } from "lucide-react";
 
-export default Items;
+export default ItemsSerie;
 
-function Items() {
-	const userService = useUserService();
-	const user = userService.currentUser;
+function ItemsSerie() {
 	const itemService = useItemService();
 	const items = itemService.items;
 	const movementService = useMovementService();
@@ -95,84 +92,61 @@ function Items() {
 	}
 
 	useEffect(() => {
-		userService.getCurrent();
 		itemService.getAll();
 		movementService.getAll();
 	}, []);
 
-	if (user?.role === "SUPERADMIN") {
-		return (
-			<div className="flex flex-col gap-4">
-				<Title>Items</Title>
-				<div className="flex gap-x-2">
-					<Link
-						href="/inventory/items/add"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Agregar Item
-					</Link>
-				</div>
-				<div className="w-full">
-					<div className="rounded-md border">
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Descripción</TableHead>
-									<TableHead>Categoría</TableHead>
-									<TableHead>UM</TableHead>
-									<TableHead>Stock Min.</TableHead>
-									<TableHead>Destacado</TableHead>
-									<TableHead>Stock Actual</TableHead>
-									<TableHead>Estado</TableHead>
-									<TableHead></TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								<TableBodyComponentSuperadmin />
-							</TableBody>
-						</Table>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
-	if (user?.role === "ADMIN") {
-		return (
-			<div className="flex flex-col gap-4">
-				<Title>Items</Title>
-				<div className="w-full">
-					<div className="rounded-md border">
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Descripción</TableHead>
-									<TableHead>Categoría</TableHead>
-									<TableHead>UM</TableHead>
-									<TableHead>Stock Min.</TableHead>
-									<TableHead>Destacado</TableHead>
-									<TableHead>Stock Actual</TableHead>
-									<TableHead>Estado</TableHead>
-									<TableHead></TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								<TableBodyComponentAdmin />
-							</TableBody>
-						</Table>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
 	return (
-		<div>
-			<Spinner />
+		<div className="flex flex-col gap-4">
+			<Title>Items con Serie</Title>
+			<div className="flex gap-x-2">
+				<Link
+					href="/inventory/items-serie/add"
+					className={buttonVariants({ variant: "outline" })}
+				>
+					Agregar Item con Serie
+				</Link>
+			</div>
+			<div className="w-full">
+				<div className="rounded-md border">
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead style={{ width: "30%" }}>
+									Descripción
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Categoría
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									UM
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Stock Min.
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Destacado
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Stock Actual
+								</TableHead>
+								<TableHead style={{ width: "30%" }}>
+									Estado
+								</TableHead>
+								<TableHead style={{ width: "10%" }}></TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableBodyComponent />
+						</TableBody>
+					</Table>
+				</div>
+			</div>
+			{/* <DataTableDemo /> */}
 		</div>
 	);
 
-	function TableBodyComponentSuperadmin() {
+	function TableBodyComponent() {
 		if (newListItems?.length) {
 			return newListItems.map((item) => (
 				<TableRow key={item.id}>
@@ -181,24 +155,10 @@ function Items() {
 					<TableCell>{item.undMed}</TableCell>
 					<TableCell>{item.minStock}</TableCell>
 					<TableCell>
-						{item.important ? (
-							<Star className="h-4 w-4 text-yellow-400" />
-						) : (
-							<StarOff className="h-4 w-4 text-neutral-600" />
-						)}
+						{item.important ? "Destacado" : "Comun"}
 					</TableCell>
 					<TableCell>{item.stockTotal}</TableCell>
-					<TableCell>
-						{item.status === "Con Stock" ? (
-							<Badge variant="success">Con Stock</Badge>
-						) : null}
-						{item.status === "Stock Min" ? (
-							<Badge variant="warning">Stock Min</Badge>
-						) : null}
-						{item.status === "Sin Stock" ? (
-							<Badge variant="error">Sin Stock</Badge>
-						) : null}
-					</TableCell>
+					<TableCell>{item.status}</TableCell>
 					<TableCell>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -223,11 +183,7 @@ function Items() {
 								<DropdownMenuItem>
 									<button
 										onClick={() =>
-											window.confirm(
-												"¿Seguro que deseas eliminar el registro?"
-											)
-												? itemService.delete(item.id)
-												: null
+											itemService.delete(item.id)
 										}
 										disabled={item.isDeleting}
 										className="w-full h-full flex"
@@ -243,58 +199,6 @@ function Items() {
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
-					</TableCell>
-				</TableRow>
-			));
-		}
-
-		if (!newListItems) {
-			return (
-				<tr>
-					<td colSpan={4}>
-						<Spinner />
-					</td>
-				</tr>
-			);
-		}
-
-		if (newListItems?.length === 0) {
-			return (
-				<TableRow>
-					<TableCell className="h-24 text-center">
-						Sin Resultados.
-					</TableCell>
-				</TableRow>
-			);
-		}
-	}
-
-	function TableBodyComponentAdmin() {
-		if (newListItems?.length) {
-			return newListItems.map((item) => (
-				<TableRow key={item.id}>
-					<TableCell>{item.description}</TableCell>
-					<TableCell>{item.category}</TableCell>
-					<TableCell>{item.undMed}</TableCell>
-					<TableCell>{item.minStock}</TableCell>
-					<TableCell>
-						{item.important ? (
-							<Star className="h-4 w-4 text-yellow-400" />
-						) : (
-							<StarOff className="h-4 w-4 text-neutral-600" />
-						)}
-					</TableCell>
-					<TableCell>{item.stockTotal}</TableCell>
-					<TableCell>
-						{item.status === "Con Stock" ? (
-							<Badge variant="success">Con Stock</Badge>
-						) : null}
-						{item.status === "Stock Min" ? (
-							<Badge variant="warning">Stock Min</Badge>
-						) : null}
-						{item.status === "Sin Stock" ? (
-							<Badge variant="error">Sin Stock</Badge>
-						) : null}
 					</TableCell>
 				</TableRow>
 			));
