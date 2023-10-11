@@ -65,6 +65,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 
 	const userService = useUserService();
 	const users = userService.users;
+	const user = userService.currentUser;
 
 	//convert array of clients - items
 	const newListItems = items?.map((item) => {
@@ -95,6 +96,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 					? new Date(movement.date)
 					: new Date(),
 			staffId: movement?.staffId || "",
+			userId: user?.id,
 			amount: movement?.amount || "",
 			reason: movement?.reason || "",
 			obs: movement?.obs || "",

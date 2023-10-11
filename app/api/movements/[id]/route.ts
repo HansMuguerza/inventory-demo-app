@@ -23,6 +23,7 @@ update.schema = joi.object({
 	type: joi.string().required(),
 	date: joi.date(),
 	staffId: joi.string().required(),
+	userId: joi.string().required(),
 	amount: joi.number().required(),
 	reason: joi.string().required(),
 	obs: joi.optional(),

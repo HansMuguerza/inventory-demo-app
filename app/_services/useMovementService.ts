@@ -71,6 +71,7 @@ export interface IMovement {
 	type: string;
 	date: Date;
 	staffId: string;
+	userId: string;
 	amount: number;
 	reason: string;
 	obs: string;
@@ -78,6 +79,7 @@ export interface IMovement {
 	//others
 	Item: IItem;
 	User: IUser;
+	Staff: IUser;
 }
 
 interface IMovementStore {

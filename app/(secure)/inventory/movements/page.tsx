@@ -64,6 +64,7 @@ function Movements() {
 									<TableHead>Razón</TableHead>
 									<TableHead>Personal</TableHead>
 									<TableHead>Obs</TableHead>
+									<TableHead>Encargado</TableHead>
 									<TableHead></TableHead>
 								</TableRow>
 							</TableHeader>
@@ -166,6 +167,9 @@ function Movements() {
 						{movement.User?.firstName.split(" ")[0]}
 					</TableCell>
 					<TableCell>{movement.obs}</TableCell>
+					<TableCell>
+						{movement.Staff?.firstName.split(" ")[0]}
+					</TableCell>
 					<TableCell>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>

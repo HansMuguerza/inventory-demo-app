@@ -86,6 +86,11 @@ function movementModel() {
 				ref: "User",
 				required: true,
 			},
+			userId: {
+				type: Schema.Types.ObjectId,
+				ref: "User",
+				required: true,
+			},
 			amount: { type: Number, required: true },
 			reason: { type: String, required: true },
 			obs: { type: String },

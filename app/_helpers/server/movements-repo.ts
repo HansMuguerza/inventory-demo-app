@@ -18,10 +18,12 @@ async function getAll() {
 		const movements = await Movement.find({ deletedAt: null });
 		// Obtener los IDs de los elementos relacionados
 		const itemIds = movements.map((movement) => movement.itemId);
-		const userIds = movements.map((movement) => movement.staffId);
+		const staffIds = movements.map((movement) => movement.staffId);
+		const userIds = movements.map((movement) => movement.userId);
 
 		// Consultar los elementos relacionados
 		const items = await Item.find({ _id: { $in: itemIds } });
+		const staffs = await User.find({ _id: { $in: staffIds } });
 		const users = await User.find({ _id: { $in: userIds } });
 
 		// Asignar los elementos relacionados a los documentos de movimiento
@@ -29,12 +31,16 @@ async function getAll() {
 			const item = items.find(
 				(item) => item._id.toString() === movement.itemId.toString()
 			);
+			const staff = staffs.find(
+				(staff) => staff._id.toString() === movement.staffId.toString()
+			);
 			const user = users.find(
-				(user) => user._id.toString() === movement.staffId.toString()
+				(user) => user._id.toString() === movement.userId.toString()
 			);
 			return {
 				...movement.toObject(), // Convertir el documento Mongoose a un objeto plano
 				Item: item, // Reemplazar la referencia por el objeto relacionado
+				Staff: staff, // Reemplazar la referencia por el objeto relacionado
 				User: user, // Reemplazar la referencia por el objeto relacionado
 			};
 		});
