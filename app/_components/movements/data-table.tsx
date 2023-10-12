@@ -39,19 +39,19 @@ import {
 	TableHeader,
 	TableRow,
 } from "_components/ui/table";
-import { IItem } from "_services";
+import { IMovement } from "_services";
 import { Badge } from "_components/ui/badge";
 import Link from "next/link";
 import { Input } from "_components/ui/input";
 
-export const columns: ColumnDef<IItem>[] = [
+export const columns: ColumnDef<IMovement>[] = [
 	{
-		accessorKey: "description",
-		header: "Descripción",
-		cell: ({ row }) => <div>{row.getValue("description")}</div>,
+		accessorKey: "type",
+		header: "Tipo",
+		cell: ({ row }) => <div>{row.getValue("type")}</div>,
 	},
 	{
-		accessorKey: "category",
+		accessorKey: "date",
 		header: ({ column }) => {
 			return (
 				<button
@@ -60,44 +60,31 @@ export const columns: ColumnDef<IItem>[] = [
 						column.toggleSorting(column.getIsSorted() === "asc")
 					}
 				>
-					Categoría
+					Fecha
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</button>
 			);
 		},
 	},
 	{
-		accessorKey: "undMed",
-		header: "UM",
+		accessorKey: "amount",
+		header: "Cantidad",
 		cell: ({ row }) => <div>{row.getValue("undMed")}</div>,
 	},
 	{
-		accessorKey: "minStock",
-		header: "Stock Min.",
-		cell: ({ row }) => <div>{row.getValue("minStock")}</div>,
+		accessorKey: "item",
+		header: "Item",
+		cell: ({ row }) => <div>{row.original.Item.description}</div>,
 	},
 	{
-		accessorKey: "important",
-		header: "Destacado",
-		cell: ({ row }) => (
-			<div>
-				{row.getValue("important") ? (
-					<Star className="h-4 w-4 text-yellow-400" />
-				) : (
-					<StarOff className="h-4 w-4 text-neutral-600" />
-				)}
-			</div>
-		),
+		accessorKey: "reason",
+		header: "Razón",
+		cell: ({ row }) => <div>{row.getValue("reason")}</div>,
 	},
 	{
-		accessorKey: "stockTotal",
-		header: "Stock Actual",
-		cell: ({ row }) => <div>{row.getValue("stockTotal")}</div>,
-	},
-	{
-		accessorKey: "status",
-		header: "Estado",
-		cell: ({ row }) => <div>{row.getValue("status")}</div>,
+		accessorKey: "obs",
+		header: "Obs.",
+		cell: ({ row }) => <div>{row.getValue("obs")}</div>,
 	},
 	{
 		id: "actions",
@@ -106,14 +93,14 @@ export const columns: ColumnDef<IItem>[] = [
 ];
 
 interface children {
-	data: Array<IItem> | undefined;
+	data: Array<IMovement> | undefined;
 	itemService: any;
 	role?: string;
 }
 
-export { DataTableDemo };
+export { DataTable };
 
-function DataTableDemo({ data, itemService }: children) {
+function DataTable({ data, itemService }: children) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>([]);
@@ -146,7 +133,7 @@ function DataTableDemo({ data, itemService }: children) {
 
 	return (
 		<div className="w-full flex flex-col gap-3">
-			<Input
+			{/* <Input
 				placeholder="Filtrar descripción..."
 				value={
 					(table
@@ -159,7 +146,7 @@ function DataTableDemo({ data, itemService }: children) {
 						?.setFilterValue(event.target.value)
 				}
 				className="max-w-sm"
-			/>
+			/> */}
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
@@ -185,44 +172,31 @@ function DataTableDemo({ data, itemService }: children) {
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
 								<TableRow key={row.id}>
+									<TableCell>{row.original.type}</TableCell>
 									<TableCell>
-										{row.original.description}
+										{row.original.date &&
+											new Date(
+												row.original.date
+											).toLocaleDateString("es-PE", {
+												timeZone: "UTC",
+												year: "numeric",
+												month: "numeric",
+												day: "numeric",
+											})}
 									</TableCell>
+									<TableCell>{row.original.amount}</TableCell>
 									<TableCell>
-										{row.original.category}
+										{row.original.Item.description}
 									</TableCell>
-									<TableCell>{row.original.undMed}</TableCell>
+									<TableCell>{row.original.reason}</TableCell>
 									<TableCell>
-										{row.original.minStock}
+										{
+											row.original.Staff.firstName.split(
+												" "
+											)[0]
+										}
 									</TableCell>
-
-									<TableCell>
-										{row.getValue("important") ? (
-											<Star className="h-4 w-4 text-yellow-400" />
-										) : (
-											<StarOff className="h-4 w-4 text-neutral-600" />
-										)}
-									</TableCell>
-									<TableCell>
-										{row.original.stockTotal}
-									</TableCell>
-									<TableCell>
-										{row.original.status === "Con Stock" ? (
-											<Badge variant="success">
-												Con Stock
-											</Badge>
-										) : null}
-										{row.original.status === "Stock Min" ? (
-											<Badge variant="warning">
-												Stock Min
-											</Badge>
-										) : null}
-										{row.original.status === "Sin Stock" ? (
-											<Badge variant="error">
-												Sin Stock
-											</Badge>
-										) : null}
-									</TableCell>
+									<TableCell>{row.original.obs}</TableCell>
 									<TableCell>
 										<DropdownMenu>
 											<DropdownMenuTrigger asChild>
@@ -243,7 +217,7 @@ function DataTableDemo({ data, itemService }: children) {
 												<DropdownMenuSeparator />
 												<DropdownMenuItem>
 													<Link
-														href={`/inventory/items/edit/${row.original.id}`}
+														href={`/inventory/movements/edit/${row.original._id}`}
 														className="w-full h-full"
 													>
 														Editar
@@ -258,7 +232,7 @@ function DataTableDemo({ data, itemService }: children) {
 																? itemService.delete(
 																		row
 																			.original
-																			.id
+																			._id
 																  )
 																: null
 														}

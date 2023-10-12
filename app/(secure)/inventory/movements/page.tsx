@@ -25,6 +25,7 @@ import {
 import { ArrowDown, ArrowUp, MoreHorizontal } from "lucide-react";
 import { toast } from "_components/ui/use-toast";
 import { Badge } from "_components/ui/badge";
+import { DataTable } from "_components/movements";
 
 export default Movements;
 
@@ -92,7 +93,7 @@ function Movements() {
 				</div>
 
 				<div className="w-full">
-					<div className="rounded-md border">
+					{/* <div className="rounded-md border">
 						<Table className="table table-striped">
 							<TableHeader>
 								<TableRow>
@@ -110,7 +111,8 @@ function Movements() {
 								<TableBodyComponentAdmin />
 							</TableBody>
 						</Table>
-					</div>
+					</div> */}
+					<DataTable data={movements} itemService={movementService} />
 				</div>
 			</div>
 		);

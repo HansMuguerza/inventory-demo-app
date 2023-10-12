@@ -113,7 +113,7 @@ function Items() {
 					</Link>
 				</div>
 				<div className="w-full">
-					<div className="rounded-md border">
+					{/* <div className="rounded-md border">
 						<Table>
 							<TableHeader>
 								<TableRow>
@@ -131,7 +131,12 @@ function Items() {
 								<TableBodyComponentSuperadmin />
 							</TableBody>
 						</Table>
-					</div>
+					</div> */}
+					<DataTableDemo
+						data={newListItems}
+						itemService={itemService}
+						role="SUPERADMIN"
+					/>
 				</div>
 			</div>
 		);

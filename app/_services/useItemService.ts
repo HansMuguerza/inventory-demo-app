@@ -73,6 +73,9 @@ export interface IItem {
 	minStock: number;
 	important: boolean;
 	state: string;
+
+	stockTotal: any;
+	status: any;
 }
 
 interface IItemStore {
