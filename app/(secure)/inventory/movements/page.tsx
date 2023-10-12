@@ -164,12 +164,13 @@ function Movements() {
 					<TableCell>{movement.Item?.description}</TableCell>
 					<TableCell>{movement.reason}</TableCell>
 					<TableCell>
-						{movement.User?.firstName.split(" ")[0]}
+						{movement.Staff?.firstName.split(" ")[0]}
 					</TableCell>
 					<TableCell>{movement.obs}</TableCell>
 					<TableCell>
-						{movement.Staff?.firstName.split(" ")[0]}
+						{movement.User?.firstName.split(" ")[0]}
 					</TableCell>
+
 					<TableCell>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -292,10 +293,10 @@ function Movements() {
 					<TableCell>{movement.amount}</TableCell>
 					<TableCell>{movement.Item?.description}</TableCell>
 					<TableCell>{movement.reason}</TableCell>
-					<TableCell>{movement.obs}</TableCell>
 					<TableCell>
 						{movement.Staff?.firstName.split(" ")[0]}
 					</TableCell>
+					<TableCell>{movement.obs}</TableCell>
 					<TableCell>{movement.obs}</TableCell>
 					<TableCell>
 						<DropdownMenu>

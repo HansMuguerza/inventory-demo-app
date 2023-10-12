@@ -44,6 +44,7 @@ async function getAll() {
 				User: user, // Reemplazar la referencia por el objeto relacionado
 			};
 		});
+		populatedMovements.sort((a, b) => b.createdAt - a.createdAt);
 
 		return populatedMovements;
 	} catch (error) {
