@@ -27,14 +27,16 @@ function Inventory() {
 	const movementService = useMovementService();
 	const movements = movementService.movements;
 
-	const newListItems = items?.map((item) => {
-		const { id, minStock } = item;
-		return {
-			...item,
-			stockTotal: stockTotal(id),
-			status: status(id, minStock),
-		};
-	});
+	const newListItems = items
+		?.filter((obj) => obj.category !== "EQUIPO MSM")
+		.map((item) => {
+			const { id, minStock } = item;
+			return {
+				...item,
+				stockTotal: stockTotal(id),
+				status: status(id, minStock),
+			};
+		});
 
 	function status(itemId: any, stockMin: number) {
 		const resIng: number | undefined = movements

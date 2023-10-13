@@ -68,13 +68,15 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 	const user = userService.currentUser;
 
 	//convert array of clients - items
-	const newListItems = items?.map((item) => {
-		const { id, description } = item;
-		return {
-			value: id,
-			label: description,
-		};
-	});
+	const newListItems = items
+		?.filter((obj) => obj.category !== "EQUIPO MSM")
+		.map((item) => {
+			const { id, description } = item;
+			return {
+				value: id,
+				label: description,
+			};
+		});
 
 	//convert array of clients - users
 	const newListUsers = users?.map((item) => {
@@ -553,27 +555,29 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 								)}
 							/>
 						</div>
-					</div>
-					<div className="flex gap-x-2">
-						<Button
-							type="submit"
-							disabled={form.formState.isSubmitting}
-						>
-							{form.formState.isSubmitting && (
-								<span className="">Guardando...</span>
-							)}
-							Guardar
-						</Button>
-						<Button
-							variant="ghost"
-							onClick={() => form.reset()}
-							disabled={form.formState.isSubmitting}
-						>
-							Restaurar
-						</Button>
-						<Button variant="ghost">
-							<Link href="/inventory/movements">Cancelar</Link>
-						</Button>
+						<div className="flex gap-x-2">
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+							>
+								{form.formState.isSubmitting && (
+									<span className="">Guardando...</span>
+								)}
+								Guardar
+							</Button>
+							<Button
+								variant="ghost"
+								onClick={() => form.reset()}
+								disabled={form.formState.isSubmitting}
+							>
+								Restaurar
+							</Button>
+							<Button variant="ghost">
+								<Link href="/inventory/movements">
+									Cancelar
+								</Link>
+							</Button>
+						</div>
 					</div>
 				</form>
 			</Form>

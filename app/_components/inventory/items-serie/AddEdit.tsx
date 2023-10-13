@@ -40,14 +40,14 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 	const form = useForm({
 		defaultValues: {
 			description: item?.description || "",
-			category: item?.category || "",
 			model: item?.model || "",
 			brand: item?.brand || "",
 			serie: item?.serie || "",
 			state: item?.state || "",
-			undMed: item?.undMed || "",
-			minStock: item?.minStock || "",
-			important: item?.important || false,
+			category: "EQUIPO MSM",
+			undMed: "UND",
+			minStock: 1,
+			important: true,
 		},
 	});
 
@@ -90,7 +90,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 			}
 
 			// redirect to item list with success message
-			router.push("/inventory/items");
+			// router.push("/inventory/items");
 			alertService.success(message, true);
 		} catch (error: any) {
 			alertService.error(error);
@@ -113,23 +113,6 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 					<div className="grid grid-cols-1 gap-6">
 						<Title>{title}</Title>
 						<div className="grid grid-cols-2 gap-y-5 gap-x-3">
-							{/* <FormField
-								control={form.control}
-								name="description"
-								render={() => (
-									<FormItem>
-										<FormLabel>Descripción</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="CONECTOR RG6"
-												{...fields.description}
-												onChange={handleUppercaseChange}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/> */}
 							<FormField
 								control={form.control}
 								name="description"

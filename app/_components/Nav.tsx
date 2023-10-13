@@ -36,12 +36,12 @@ function Nav() {
 						>
 							Home
 						</NavLink>
-						<NavLink
+						{/* <NavLink
 							href="/users"
 							className={buttonVariants({ variant: "ghost" })}
 						>
 							Usuarios
-						</NavLink>
+						</NavLink> */}
 
 						<NavLink
 							href="/inventory"
