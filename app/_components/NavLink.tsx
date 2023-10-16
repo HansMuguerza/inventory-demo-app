@@ -10,7 +10,7 @@ function NavLink({ children, href, exact, ...props }: INavLink) {
 	const isActive = exact ? pathname === href : pathname.startsWith(href);
 
 	if (isActive) {
-		props.className += " bg-accent text-accent-foreground";
+		props.className += " font-bold text-neutral-200";
 	}
 
 	return (

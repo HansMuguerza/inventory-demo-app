@@ -109,7 +109,7 @@ function Items() {
 				<div className="flex gap-x-2">
 					<Link
 						href="/inventory/items/add"
-						className={buttonVariants({ variant: "outline" })}
+						className={buttonVariants({ variant: "secondary" })}
 					>
 						Agregar Item
 					</Link>

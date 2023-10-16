@@ -47,7 +47,7 @@ function Movements() {
 				<div>
 					<Link
 						href="/inventory/movements/add"
-						className={buttonVariants({ variant: "outline" })}
+						className={buttonVariants({ variant: "secondary" })}
 					>
 						Agregar Movimiento
 					</Link>

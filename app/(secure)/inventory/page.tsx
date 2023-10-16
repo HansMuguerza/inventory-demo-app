@@ -95,27 +95,6 @@ function Inventory() {
 	if (user?.role === "SUPERADMIN") {
 		return (
 			<div className="flex flex-col gap-4">
-				<Title>Inventario - Con vista de superadmin</Title>
-				<div className="flex gap-x-2">
-					<Link
-						href="/inventory/items"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Items
-					</Link>
-					{/* <Link
-						href="/inventory/items-serie"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Items con serie
-					</Link> */}
-					<Link
-						href="/inventory/movements"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Movimientos
-					</Link>
-				</div>
 				<div>
 					<div className="grid grid-cols-3 gap-3">
 						<div className="flex flex-col gap-2">
@@ -254,23 +233,141 @@ function Inventory() {
 
 	if (user?.role === "ADMIN") {
 		return (
-			<>
+			<div className="flex flex-col gap-4">
 				<Title>Inventario - Con vista de admin</Title>
-				<div className="flex gap-x-2">
-					<Link
-						href="/inventory/items"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Items
-					</Link>
-					<Link
-						href="/inventory/movements"
-						className={buttonVariants({ variant: "outline" })}
-					>
-						Movimientos
-					</Link>
+				<div>
+					<div className="grid grid-cols-3 gap-3">
+						<div className="flex flex-col gap-2">
+							<Badge variant="success">
+								Tabla de Items En Stock
+							</Badge>
+							<div className="rounded-md border">
+								<Table>
+									<TableHeader>
+										<TableRow>
+											<TableHead></TableHead>
+											<TableHead>Descripción</TableHead>
+											<TableHead>Stock Actual</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody>
+										{newListItems &&
+											newListItems
+												.filter(
+													(item) =>
+														item.status ===
+														"Con Stock"
+												)
+												.map((item) => (
+													<TableRow key={item.id}>
+														<TableCell>
+															{item.important ? (
+																<Star className="h-4 w-4 text-yellow-400" />
+															) : (
+																<StarOff className="h-4 w-4 text-neutral-600" />
+															)}
+														</TableCell>
+														<TableCell>
+															{item.description}
+														</TableCell>
+														<TableCell>
+															{item.stockTotal}
+														</TableCell>
+													</TableRow>
+												))}
+									</TableBody>
+								</Table>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-2">
+							<Badge variant="warning">
+								Tabla de Items En Stock Mínimo
+							</Badge>
+							<div className="rounded-md border">
+								<Table>
+									<TableHeader>
+										<TableRow>
+											<TableHead></TableHead>
+											<TableHead>Descripción</TableHead>
+											<TableHead>Stock Actual</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody>
+										{newListItems &&
+											newListItems
+												.filter(
+													(item) =>
+														item.status ===
+														"Stock Min"
+												)
+												.map((item) => (
+													<TableRow key={item.id}>
+														<TableCell>
+															{item.important ? (
+																<Star className="h-4 w-4 text-yellow-400" />
+															) : (
+																<StarOff className="h-4 w-4 text-neutral-600" />
+															)}
+														</TableCell>
+														<TableCell>
+															{item.description}
+														</TableCell>
+														<TableCell>
+															{item.stockTotal}
+														</TableCell>
+													</TableRow>
+												))}
+									</TableBody>
+								</Table>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-2">
+							<Badge variant="error">
+								Tabla de Items Sin Stock
+							</Badge>
+							<div className="rounded-md border">
+								<Table>
+									<TableHeader>
+										<TableRow>
+											<TableHead></TableHead>
+											<TableHead>Descripción</TableHead>
+											<TableHead>Stock Actual</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody>
+										{newListItems &&
+											newListItems
+												.filter(
+													(item) =>
+														item.status ===
+														"Sin Stock"
+												)
+												.map((item) => (
+													<TableRow key={item.id}>
+														<TableCell>
+															{item.important ? (
+																<Star className="h-4 w-4 text-yellow-400" />
+															) : (
+																<StarOff className="h-4 w-4 text-neutral-600" />
+															)}
+														</TableCell>
+														<TableCell>
+															{item.description}
+														</TableCell>
+														<TableCell>
+															{item.stockTotal}
+														</TableCell>
+													</TableRow>
+												))}
+									</TableBody>
+								</Table>
+							</div>
+						</div>
+					</div>
 				</div>
-			</>
+			</div>
 		);
 	}
 

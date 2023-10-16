@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import {
+	ArrowDown,
+	ArrowUp,
 	ArrowUpDown,
 	ChevronDown,
 	MoreHorizontal,
@@ -172,7 +174,28 @@ function DataTable({ data, itemService }: children) {
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
 								<TableRow key={row.id}>
-									<TableCell>{row.original.type}</TableCell>
+									<TableCell>
+										{row.original.type === "Ingreso" ? (
+											<div>
+												<Badge variant="success">
+													<div className="flex items-center gap-1">
+														<ArrowUp className="h-3 w-3" />
+														Ingreso
+													</div>
+												</Badge>
+											</div>
+										) : null}
+										{row.original.type === "Egreso" ? (
+											<div>
+												<Badge variant="error">
+													<div className="flex items-center gap-1">
+														<ArrowDown className="h-3 w-3" />
+														Egreso
+													</div>
+												</Badge>
+											</div>
+										) : null}
+									</TableCell>
 									<TableCell>
 										{row.original.date &&
 											new Date(

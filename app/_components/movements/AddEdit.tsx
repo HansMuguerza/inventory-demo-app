@@ -44,7 +44,7 @@ import {
 } from "_components/ui/popover";
 import { Calendar } from "_components/ui/calendar";
 import { Textarea } from "_components/ui/textarea";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ArrowDown, ArrowUp, Check, ChevronsUpDown } from "lucide-react";
 import {
 	Command,
 	CommandEmpty,
@@ -52,6 +52,15 @@ import {
 	CommandInput,
 	CommandItem,
 } from "_components/ui/command";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "_components/ui/table";
+import { Badge } from "_components/ui/badge";
 
 export { AddEdit };
 
@@ -59,6 +68,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 	const router = useRouter();
 	const alertService = useAlertService();
 	const movementService = useMovementService();
+	const movements = movementService.movements;
 
 	const itemService = useItemService();
 	const items = itemService.items;
@@ -136,20 +146,23 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 			}
 
 			// redirect to user list with success message
-			router.push("/inventory/movements");
-			alertService.success(message, true);
+			// router.push("/inventory/movements");
+			movementService.getAll();
+			// alertService.success(message, true);
 		} catch (error: any) {
 			alertService.error(error);
 		}
 	}
 
 	useEffect(() => {
+		userService.getCurrent();
 		itemService.getAll();
 		userService.getAll();
+		movementService.getAll();
 	}, []);
 
 	return (
-		<div className="flex justify-center">
+		<div className="flex justify-center gap-x-5">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
@@ -581,6 +594,45 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 					</div>
 				</form>
 			</Form>
+			<div>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Tipo</TableHead>
+							<TableHead>Item</TableHead>
+							<TableHead>Cantidad</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{movements?.slice(0, 10).map((obj) => (
+							<TableRow key={obj._id}>
+								<TableCell>
+									{obj.type === "Ingreso" ? (
+										<div>
+											<Badge variant="success">
+												<div className="flex items-center gap-1">
+													<ArrowUp className="h-3 w-3" />
+												</div>
+											</Badge>
+										</div>
+									) : null}
+									{obj.type === "Egreso" ? (
+										<div>
+											<Badge variant="error">
+												<div className="flex items-center gap-1">
+													<ArrowDown className="h-3 w-3" />
+												</div>
+											</Badge>
+										</div>
+									) : null}
+								</TableCell>
+								<TableCell>{obj.Item.description}</TableCell>
+								<TableCell>{obj.amount}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 		</div>
 	);
 }

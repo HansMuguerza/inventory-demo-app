@@ -21,8 +21,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 		<div className="app-container bg-light">
 			<Nav />
 			<Alert />
-			<div className="p-4">
-				<div className="container">{children}</div>
+			<div className="relative top-[70px] z-10">
+				<div className="py-3 px-4">{children}</div>
 				<Toaster />
 			</div>
 		</div>
