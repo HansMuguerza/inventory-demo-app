@@ -42,6 +42,7 @@ import {
 import { IItem } from "_services";
 import { Badge } from "_components/ui/badge";
 import { Input } from "_components/new-ui/Input";
+import Link from "next/link";
 
 export const columns: ColumnDef<IItem>[] = [
 	{
@@ -228,7 +229,7 @@ function DataTableDemo({ data, itemService }: children) {
 											</Badge>
 										) : null}
 									</TableCell>
-									{/* <TableCell>
+									<TableCell>
 										<DropdownMenu>
 											<DropdownMenuTrigger asChild>
 												<Button
@@ -287,7 +288,7 @@ function DataTableDemo({ data, itemService }: children) {
 												</DropdownMenuItem>
 											</DropdownMenuContent>
 										</DropdownMenu>
-									</TableCell> */}
+									</TableCell>
 								</TableRow>
 							))
 						) : (

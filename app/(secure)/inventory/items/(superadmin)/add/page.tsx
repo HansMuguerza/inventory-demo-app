@@ -7,7 +7,7 @@ function Add() {
 	return (
 		<div className="flex flex-col gap-y-6">
 			<AddEdit title="Agregar Item" />
-			<AddEditItemSerie title="Agregar Item con Serie" />
+			{/* <AddEditItemSerie title="Agregar Item con Serie" /> */}
 		</div>
 	);
 }

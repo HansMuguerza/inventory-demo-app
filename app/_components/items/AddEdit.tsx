@@ -121,7 +121,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 										<FormLabel>Descripción</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="CONECTOR RG6"
+												placeholder="Descripción de Item"
 												{...fields.description}
 												onChange={handleUppercaseChange}
 											/>
@@ -146,23 +146,26 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="FTTH">
-													FTTH
+												<SelectItem value="ABARROTES">
+													ABARROTES
 												</SelectItem>
-												<SelectItem value="COAXIAL">
-													COAXIAL
+												<SelectItem value="PRODUCTOS ENLATADOS">
+													PRODUCTOS ENLATADOS
 												</SelectItem>
-												<SelectItem value="AMPLIACIÓN">
-													AMPLIACIÓN
+												<SelectItem value="BOTANAS / BOCADITOS">
+													BOTANAS / BOCADITOS
 												</SelectItem>
-												<SelectItem value="PUBLICIDAD">
-													PUBLICIDAD
+												<SelectItem value="CONFITERIA / DULCERIA">
+													CONFITERIA / DULCERIA
 												</SelectItem>
-												<SelectItem value="EQUIPO MSM">
-													EQUIPO MSM
+												<SelectItem value="BEBIDAS">
+													BEBIDAS
 												</SelectItem>
-												<SelectItem value="OTRO">
-													OTRO
+												<SelectItem value="LIMPIEZA / USO DOMESTICO">
+													LIMPIEZA / USO DOMESTICO
+												</SelectItem>
+												<SelectItem value="OTROS">
+													OTROS
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -190,8 +193,20 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 												<SelectItem value="UND">
 													UND
 												</SelectItem>
-												<SelectItem value="ROLLO">
-													ROLLO
+												<SelectItem value="KG">
+													KG
+												</SelectItem>
+												<SelectItem value="GR">
+													GR
+												</SelectItem>
+												<SelectItem value="FARDO">
+													FARDO
+												</SelectItem>
+												<SelectItem value="TIRA">
+													TIRA
+												</SelectItem>
+												<SelectItem value="CAJA">
+													CAJA
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -223,26 +238,20 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
+
 							<FormField
 								control={form.control}
-								name="important"
-								render={({ field }) => (
-									<FormItem className="">
-										<FormLabel>Destacable</FormLabel>
-										<div className="flex gap-x-2 items-center border p-2.5 rounded-md">
-											<FormControl>
-												<Checkbox
-													checked={field.value}
-													onCheckedChange={
-														field.onChange
-													}
-												/>
-											</FormControl>
-											<FormDescription>
-												Seleccionar para destacar el
-												item a ingresar.
-											</FormDescription>
-										</div>
+								name="brand"
+								render={() => (
+									<FormItem>
+										<FormLabel>Marca</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="Marca del Item"
+												{...fields.brand}
+												onChange={handleUppercaseChange}
+											/>
+										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
@@ -266,30 +275,13 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 							/>
 							<FormField
 								control={form.control}
-								name="brand"
-								render={() => (
-									<FormItem>
-										<FormLabel>Marca</FormLabel>
-										<FormControl>
-											<Input
-												placeholder="OPTRONICS"
-												{...fields.brand}
-												onChange={handleUppercaseChange}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
 								name="serie"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Serie</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="SERIE000"
+												placeholder="SERIE001"
 												{...field}
 												onChange={handleUppercaseChange}
 											/>
@@ -329,10 +321,34 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
+							<FormField
+								control={form.control}
+								name="important"
+								render={({ field }) => (
+									<FormItem className="">
+										<FormLabel>Destacable</FormLabel>
+										<div className="flex gap-x-2 items-center border p-2.5 rounded-md">
+											<FormControl>
+												<Checkbox
+													checked={field.value}
+													onCheckedChange={
+														field.onChange
+													}
+												/>
+											</FormControl>
+											<FormDescription>
+												Destacar el item a ingresar.
+											</FormDescription>
+										</div>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 						</div>
 						<div className="flex gap-x-2">
 							<Button
 								type="submit"
+								className="bg-green-600"
 								disabled={form.formState.isSubmitting}
 							>
 								{form.formState.isSubmitting && (
@@ -340,15 +356,15 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 								)}
 								Guardar
 							</Button>
+							<Button variant="ghost" className="bg-red-600">
+								<Link href="/inventory/items">Cancelar</Link>
+							</Button>
 							<Button
 								variant="ghost"
 								onClick={() => form.reset()}
 								disabled={form.formState.isSubmitting}
 							>
 								Restaurar
-							</Button>
-							<Button variant="ghost">
-								<Link href="/inventory/items">Cancelar</Link>
 							</Button>
 						</div>
 					</div>

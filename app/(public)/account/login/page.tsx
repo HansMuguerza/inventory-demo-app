@@ -96,7 +96,7 @@ export default function Login() {
 					</div>
 					<div className="flex justify-center mt-10">
 						<span className="text-center text-sm text-zinc-500 font-semibold">
-							v1.80
+							v1.8
 						</span>
 					</div>
 				</div>

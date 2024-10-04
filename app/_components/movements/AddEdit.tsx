@@ -170,7 +170,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 					<div className="grid grid-cols-1 gap-6">
 						<Title>{title}</Title>
 						<div className="grid grid-cols-2 gap-2">
-							<>
+							{/* <>
 								{user?.role === "SUPERADMIN" ? (
 									<FormField
 										control={form.control}
@@ -203,7 +203,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 										)}
 									/>
 								) : null}
-							</>
+							</> */}
 							<FormField
 								control={form.control}
 								name="itemId"
@@ -477,26 +477,8 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="Instalación">
-													Instalación
-												</SelectItem>
-												<SelectItem value="Avería">
-													Avería
-												</SelectItem>
-												<SelectItem value="Modificación">
-													Modificación
-												</SelectItem>
-												<SelectItem value="Anexo">
-													Anexo
-												</SelectItem>
-												<SelectItem value="Anexo Interno">
-													Anexo Interno
-												</SelectItem>
-												<SelectItem value="Traslado">
-													Traslado
-												</SelectItem>
-												<SelectItem value="Ampliación">
-													Ampliación
+												<SelectItem value="Venta">
+													Venta
 												</SelectItem>
 												<SelectItem value="Proveedor">
 													Proveedor
@@ -536,13 +518,14 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}
+								className="bg-green-600 hover:bg-green-800"
 							>
 								{form.formState.isSubmitting && (
 									<span className="">Guardando...</span>
 								)}
 								Guardar
 							</Button>
-							<Button variant="ghost">
+							<Button variant="ghost" className="bg-red-600">
 								<Link href="/inventory/movements">
 									Cancelar
 								</Link>
