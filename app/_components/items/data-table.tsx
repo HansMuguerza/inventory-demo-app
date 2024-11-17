@@ -160,13 +160,13 @@ function DataTableDemo({ data, itemService }: children) {
 				}
 				className="max-w-sm"
 			/>
-			<div className="rounded-md border border-zinc-700">
+			<div className="rounded-md border border-zinc-500">
 				<Table>
 					<TableHeader className="text-zinc-400">
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow
 								key={headerGroup.id}
-								className="border-zinc-700"
+								className="border-zinc-500"
 							>
 								{headerGroup.headers.map((header) => {
 									return (
@@ -189,7 +189,7 @@ function DataTableDemo({ data, itemService }: children) {
 							table.getRowModel().rows.map((row) => (
 								<TableRow
 									key={row.id}
-									className="border-zinc-700 text-zinc-300"
+									className="font-semibold border-zinc-500 text-zinc-700"
 								>
 									<TableCell>
 										{row.original.description}
@@ -214,17 +214,26 @@ function DataTableDemo({ data, itemService }: children) {
 									</TableCell>
 									<TableCell>
 										{row.original.status === "Con Stock" ? (
-											<Badge variant="success">
+											<Badge
+												variant="success"
+												className="text-white"
+											>
 												Con Stock
 											</Badge>
 										) : null}
 										{row.original.status === "Stock Min" ? (
-											<Badge variant="warning">
+											<Badge
+												variant="warning"
+												className="text-white"
+											>
 												Stock Min
 											</Badge>
 										) : null}
 										{row.original.status === "Sin Stock" ? (
-											<Badge variant="error">
+											<Badge
+												variant="error"
+												className="text-white"
+											>
 												Sin Stock
 											</Badge>
 										) : null}

@@ -96,7 +96,9 @@ function Inventory() {
 					<div className="grid grid-cols-3 gap-3">
 						<div className="flex flex-col gap-2">
 							<Badge variant="success">
-								Tabla de Items En Stock
+								<p className="text-white">
+									Tabla de Items En Stock
+								</p>
 							</Badge>
 							<div className="rounded-md border">
 								<Table>
@@ -139,7 +141,9 @@ function Inventory() {
 
 						<div className="flex flex-col gap-2">
 							<Badge variant="warning">
-								Tabla de Items En Stock Mínimo
+								<p className="text-white">
+									Tabla de Items En Stock Mínimo
+								</p>
 							</Badge>
 							<div className="rounded-md border">
 								<Table>
@@ -182,7 +186,9 @@ function Inventory() {
 
 						<div className="flex flex-col gap-2">
 							<Badge variant="error">
-								Tabla de Items Sin Stock
+								<p className="text-white">
+									Tabla de Items Sin Stock
+								</p>
 							</Badge>
 							<div className="rounded-md border">
 								<Table>

@@ -14,7 +14,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<Alert />
-			<div className="text-zinc-100 bg-zinc-900 min-h-screen">
+			<div className="text-zinc-900 bg-zinc-200 min-h-screen">
 				{children}
 			</div>
 		</>

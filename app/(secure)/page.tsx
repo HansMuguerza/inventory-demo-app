@@ -26,7 +26,9 @@ export default function Home() {
 	if (user) {
 		return (
 			<div className="flex flex-col items-center gap-y-2 pt-40">
-				<h1>Hola, {user.firstName}</h1>
+				<h1 className="text-xl font-semibold">
+					Hola, {user.firstName}
+				</h1>
 				<div className="flex gap-x-4 mb-24">
 					<Link href="/inventory">
 						<Button>Inventario</Button>
@@ -36,12 +38,16 @@ export default function Home() {
 					{loggingOut ? (
 						<div className="flex items-center gap-x-1">
 							<Loader className="h-3 w-3 animate-spin" />
-							<span className="text-sm">Cerrando Sesión...</span>
+							<span className="text-sm font-medium">
+								Cerrando Sesión...
+							</span>
 						</div>
 					) : (
 						<div className="flex items-center gap-x-1">
 							<LogOut className="h-3 w-3" />
-							<span className="text-sm">Cerrar Sesión</span>
+							<span className="text-sm font-medium">
+								Cerrar Sesión
+							</span>
 						</div>
 					)}
 				</button>

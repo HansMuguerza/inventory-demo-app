@@ -149,13 +149,13 @@ function DataTable({ data, itemService }: children) {
 				}
 				className="max-w-sm"
 			/> */}
-			<div className="rounded-md border border-zinc-700">
+			<div className="rounded-md border border-zinc-500">
 				<Table>
 					<TableHeader className="text-zinc-400">
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow
 								key={headerGroup.id}
-								className="border-zinc-700"
+								className="border-zinc-500"
 							>
 								{headerGroup.headers.map((header) => {
 									return (
@@ -178,12 +178,15 @@ function DataTable({ data, itemService }: children) {
 							table.getRowModel().rows.map((row) => (
 								<TableRow
 									key={row.id}
-									className="border-zinc-700 text-zinc-300"
+									className="font-semibold border-zinc-500 text-zinc-700"
 								>
 									<TableCell>
 										{row.original.type === "Ingreso" ? (
 											<div>
-												<Badge variant="success">
+												<Badge
+													variant="success"
+													className="text-white font-medium"
+												>
 													<div className="flex items-center gap-1">
 														<ArrowUp className="h-3 w-3" />
 														Ingreso
@@ -193,7 +196,10 @@ function DataTable({ data, itemService }: children) {
 										) : null}
 										{row.original.type === "Egreso" ? (
 											<div>
-												<Badge variant="error">
+												<Badge
+													variant="error"
+													className="text-white font-medium"
+												>
 													<div className="flex items-center gap-1">
 														<ArrowDown className="h-3 w-3" />
 														Egreso

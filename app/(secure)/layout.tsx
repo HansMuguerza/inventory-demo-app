@@ -23,7 +23,7 @@ export default async function Layout({
 
 	return (
 		<div
-			className={roboto.className + "bg-zinc-900 text-zinc-100 h-screen"}
+			className={roboto.className + "bg-zinc-200 text-zinc-900 h-screen"}
 		>
 			{children}
 		</div>

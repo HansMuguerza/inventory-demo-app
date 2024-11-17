@@ -256,7 +256,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="model"
 								render={() => (
@@ -272,7 +272,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 							<FormField
 								control={form.control}
 								name="serie"
@@ -290,7 +290,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 									</FormItem>
 								)}
 							/>
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="state"
 								render={({ field }) => (
@@ -320,7 +320,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 							<FormField
 								control={form.control}
 								name="important"
@@ -348,7 +348,7 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 						<div className="flex gap-x-2">
 							<Button
 								type="submit"
-								className="bg-green-600"
+								className="bg-green-600 text-white"
 								disabled={form.formState.isSubmitting}
 							>
 								{form.formState.isSubmitting && (
@@ -356,7 +356,10 @@ function AddEdit({ title, item }: { title: string; item?: any }) {
 								)}
 								Guardar
 							</Button>
-							<Button variant="ghost" className="bg-red-600">
+							<Button
+								variant="ghost"
+								className="bg-red-600 text-white"
+							>
 								<Link href="/inventory/items">Cancelar</Link>
 							</Button>
 							<Button

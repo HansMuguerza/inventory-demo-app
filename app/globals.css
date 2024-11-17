@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-	@apply bg-zinc-900 text-zinc-100;
+	@apply bg-zinc-300 text-zinc-800;
 	font-size: 14px;
 	font-family: "Inter", "Roboto", sans-serif;
 }
 
 input {
-	@apply bg-zinc-950;
+	@apply bg-zinc-800;
 }

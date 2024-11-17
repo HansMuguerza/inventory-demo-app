@@ -23,7 +23,7 @@ interface Props {
 
 export default function Sidebar({ user }: Props) {
 	return (
-		<aside className="bg-zinc-900 text-blue-100 border-r border-zinc-800 w-60 space-y-6 py-7 px-4 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+		<aside className="bg-zinc-300 text-blue-100 border-r border-zinc-400 w-60 space-y-6 py-7 px-4 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
 			<div className="h-full flex flex-col justify-between">
 				<div className="flex flex-col gap-y-2">
 					<Link href="/">
@@ -40,14 +40,14 @@ export default function Sidebar({ user }: Props) {
 							height={35}
 						/>
 					</Link>
-					<ul className="flex flex-col gap-y-2 text-zinc-400 text-md mt-3">
+					<ul className="flex flex-col gap-y-2 text-zinc-800 text-md mt-3">
 						<li>
 							<NavLink
 								href="/inventory"
 								exact
-								className="rounded-xl flex items-center gap-x-2 px-3 py-2"
+								className="rounded-xl flex items-center gap-x-2 px-3 py-2 "
 							>
-								<Home className="h-4 w-4 text-zinc-500" />
+								<Home className="h-4 w-4 text-zinc-800" />
 								Inventario
 							</NavLink>
 						</li>
@@ -56,7 +56,7 @@ export default function Sidebar({ user }: Props) {
 								href="/inventory/items"
 								className="rounded-xl flex items-center gap-x-2 px-3 py-2"
 							>
-								<Package className="h-4 w-4 text-zinc-500" />
+								<Package className="h-4 w-4 text-zinc-800" />
 								Items
 							</NavLink>
 						</li>
@@ -65,7 +65,7 @@ export default function Sidebar({ user }: Props) {
 								href="/inventory/movements"
 								className="rounded-xl flex items-center gap-x-2 px-3 py-2"
 							>
-								<ArrowDownUp className="h-4 w-4 text-zinc-500" />
+								<ArrowDownUp className="h-4 w-4 text-zinc-800" />
 								Movimientos
 							</NavLink>
 						</li>
@@ -121,12 +121,12 @@ export default function Sidebar({ user }: Props) {
 						{user.firstName[0]}
 					</div>
 					<div>
-						<h2 className="leading-none">
+						<h2 className="leading-none text-zinc-800">
 							{user.firstName.split(" ")[0] +
 								" " +
 								user.lastName.split(" ")[0]}
 						</h2>
-						<span className="text-xs leading-none text-zinc-500">
+						<span className="text-xs leading-none font-semibold text-zinc-500">
 							{user.role}
 						</span>
 					</div>

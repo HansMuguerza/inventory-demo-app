@@ -8,7 +8,7 @@ export default function NavLink({ children, href, exact, ...props }: INavLink) {
 	const isActive = exact ? pathname === href : pathname.startsWith(href);
 
 	if (isActive) {
-		props.className += " bg-zinc-800 rounded-xl text-zinc-100";
+		props.className += " bg-indigo-800 rounded-xl text-zinc-100";
 	}
 
 	return (

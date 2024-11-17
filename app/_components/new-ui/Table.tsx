@@ -10,7 +10,7 @@ const Table = React.forwardRef<
 		<table
 			ref={ref}
 			className={cn(
-				"w-full caption-bottom text-sm text-zinc-100",
+				"w-full caption-bottom text-sm text-zinc-800",
 				className
 			)}
 			{...props}
@@ -45,7 +45,7 @@ const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<tfoot
 		ref={ref}
-		className={cn("bg-zinc-700 text-zinc-100", className)}
+		className={cn("bg-zinc-700 text-zinc-800", className)}
 		{...props}
 	/>
 ));
@@ -58,7 +58,7 @@ const TableRow = React.forwardRef<
 	<tr
 		ref={ref}
 		className={cn(
-			"border-b transition-colors hover:bg-zinc-800/50 data-[state=selected]:bg-muted border-zinc-700 text-zinc-300",
+			"border-b transition-colors hover:bg-zinc-300/80 data-[state=selected]:bg-muted border-zinc-700 text-zinc-800",
 			className
 		)}
 		{...props}

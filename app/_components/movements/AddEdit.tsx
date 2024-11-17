@@ -217,7 +217,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 														variant="outline"
 														role="combobox"
 														className={cn(
-															"w-full justify-between",
+															"w-full justify-between rounded-md border-neutral-400",
 															!field.value &&
 																"text-muted-foreground"
 														)}
@@ -294,10 +294,16 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 											</FormControl>
 											<SelectContent>
 												<SelectItem value="Ingreso">
-													Ingreso
+													<div className="flex items-center gap-2 text-green-700">
+														<ArrowUp className="h-3 w-3" />
+														<span>Ingreso</span>
+													</div>
 												</SelectItem>
 												<SelectItem value="Egreso">
-													Egreso
+													<div className="flex items-center gap-2 text-red-700">
+														<ArrowDown className="h-3 w-3" />
+														<span>Egreso</span>
+													</div>
 												</SelectItem>
 											</SelectContent>
 										</Select>
@@ -318,7 +324,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 														variant="outline"
 														role="combobox"
 														className={cn(
-															"w-full justify-between",
+															"w-full justify-between rounded-md border-neutral-400",
 															!field.value &&
 																"text-muted-foreground"
 														)}
@@ -411,7 +417,7 @@ function AddEdit({ title, movement }: { title: string; movement?: any }) {
 													<Button
 														variant={"outline"}
 														className={cn(
-															"w-full pl-3 text-left font-normal",
+															"w-full pl-3 text-left font-normal rounded-md border-neutral-400",
 															!field.value &&
 																"text-muted-foreground"
 														)}
